@@ -1,0 +1,51 @@
+###############################################################################
+## dev 开发环境
+###############################################################################
+## 数据库设置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.17.139.26:16310/rmg?useServerPrepStmts=true&cachePrepStmts=true&socketTimeout=3000&connectTimeout=2000&useAffectedRows=true&useSSL=true&autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: dfm
+    password: dfm
+    type: com.alibaba.druid.pool.DruidDataSource # 数据源操作类型
+    druid:
+      #初始化大小，最小，最大
+      initial-size: 6
+      min-Idle: 9
+      max-active: 12
+      #配置获取连接等待超时的时间
+      max-wait: 3000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 400000
+
+      validation-query: select 1
+      validation-query-timeout: 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      pool-prepared-statements: false
+      keep-alive: false
+      connection-properties: socketTimeout=3000;connectTimeout=1200
+
+#    type: org.apache.commons.dbcp2.BasicDataSource
+#    dbcp2:
+#      initial-size: 20
+#      min-idle: 10
+#      max-idle: 20
+#      max-total: 100
+#      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+#      time-between-eviction-runs-millis: 2000
+#      # 配置一个连接在池中最小生存的时间，单位是毫秒
+#      min-evictable-idle-time-millis: 600000
+#      max-conn-lifetime-millis: 900000
+#      validation-query: select 1
+#      validation-query-timeout: 1
+#      test-while-idle: false
+#      test-on-borrow: true
+#      test-on-return: false
+#      log-expired-connections: true
+#      max-wait-millis: 30000

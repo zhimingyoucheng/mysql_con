@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="wjy.connection.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="wjy.connection.model.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap id="hostName" type="map">
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <insert id="addAndGet" parameterType="wjy.connection.model.User">
+        insert into user (name, age)
+        values (#{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
+    </insert>
+
+    <select id="getEmployee" resultType="list">
+        select lead_id, emp_id, emp_name, salary
+        from employee start with lead_id = 3 connect by prior emp_id = lead_id
+    </select>
+
+    <update id="updateData" parameterType="java.util.Map" >
+        update testdb.sbtest10 set
+         k = #{key} where k = #{value}
+    </update>
+
+    <select id="alterRmg" >
+        alter table rmg.user add index idx_name (name);
+    </select>
+
+    <!--   <select id="selectHostName" resultMap="hostName">
+           select @@hostname as name;
+       </select>-->
+
+    <!--  &lt;!&ndash; 无参数的存储过程 &ndash;&gt;
+      <select id="selectNoParameters" statementType="CALLABLE" parameterType="map">
+          {call select_no_parameter()}
+      </select>
+
+      &lt;!&ndash; 有参数的存储过程 &ndash;&gt;
+      <select id="selectByParameters" statementType="CALLABLE" parameterType="map">
+          {call proce(#{aaa}, #{bbb}, #{ccc})}
+      </select>-->
+
+    <!-- 有结果集的存储过程 -->
+    <!-- create or replace procedure selectWithResult(parameter01 in varchar2,result out Sys_Refcursor) -->
+    <!--    <resultMap id="myMap" type="java.util.Map">
+
+        </resultMap>-->
+
+    <!--    <select id="selectWithResult" statementType="CALLABLE" parameterType="map">
+            {call select_with_result(
+                    #{parameter01,jdbcType=varchar},
+                    #{result ,jdbcType=CURSOR ,mode=OUT,javaType=ResultSet,resultMap=mMap}
+                )}
+        </select>-->
+
+
+    <!--
+        <select id="deleteOldDateByParameters" statementType="CALLABLE" parameterType="map">
+            {call proce(#{aaa}, #{bbb}, #{ccc})}
+        </select>
+
+        <delete id="deleteOldDate" parameterType="string">
+            delete
+            from db.table1
+            where step_id in (select step_id from db.table2 where sclass_id = #{id})
+        </delete>
+
+        <insert id="addList" parameterType="list" flushCache="true">
+            INSERT INTO db.table
+            (id ,name)
+            VALUES
+            <foreach collection="parameter" item="awake" separator=",">
+                (#{awake.id}, #{user.name})
+            </foreach>
+        </insert>
+    -->
+
+
+</mapper>

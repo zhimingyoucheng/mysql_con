@@ -1,0 +1,16 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+
+mybatis:
+  type-aliases-package: com.wjy.connection.model
+  type-handlers-package: com.wjy.connection.dao
+  mapper-locations: classpath*:mapper.user/*.xml
+
+mapper:
+  mappers: wjy.connection.dao.UserMapper
+  not-empty: false
+  identity: Mysql
+
